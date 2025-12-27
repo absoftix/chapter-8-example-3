@@ -57,6 +57,14 @@ jobs:
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
           kubectl-version: v1.24.2
+
+
+      - name: Create image pull secret
+        run: |
+          kubectl create secret docker-registry acr-secret \
+            --docker-server=${{ secrets.CONTAINER_REGISTRY }} \
+            --docker-username=${{ secrets.REGISTRY_UN }} \
+            --docker-password=${{ secrets.REGISTRY_PW }}
       
       #
       # Expands the configuration template and deploys the microservice.
