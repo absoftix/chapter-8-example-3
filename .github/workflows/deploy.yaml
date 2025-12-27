@@ -64,7 +64,8 @@ jobs:
           kubectl create secret docker-registry acr-secret \
             --docker-server=${{ secrets.CONTAINER_REGISTRY }} \
             --docker-username=${{ secrets.REGISTRY_UN }} \
-            --docker-password=${{ secrets.REGISTRY_PW }}
+            --docker-password=${{ secrets.REGISTRY_PW }} \
+            --dry-run=client -o yaml | kubectl apply -f -
       
       #
       # Expands the configuration template and deploys the microservice.
